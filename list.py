@@ -41,10 +41,11 @@ done_tasks = []
 pending_tasks = []
 
 tasks = {"pending": pending_tasks,
-        "done": done_tasks}
+        "done": done_tasks} #create a dictionary to store tasks
+
 file_path= "tasks.txt"
 try:
-    with open(file_path, "r") as file:
+    with open(file_path, "r") as file: # open the file in read mode
         lines = file.readlines()
         current_section = None
         for line in lines:
@@ -60,7 +61,7 @@ try:
                 elif current_section == "done":
                     tasks["done"].append(task)
 except FileNotFoundError:
-    file = open(file_path, "w")
+    file = open(file_path, "w") # create the file if it doesn't exist
 
 print("LIGHTNING MCQUEEN'S TO-DO LIST")
 print("\nWelcome to Lightning McQueen's To-Do List! ")
@@ -68,6 +69,7 @@ print("\nWelcome to Lightning McQueen's To-Do List! ")
 while True:
     print("\nChoose the action you want to perform: (a)dd,(m)ark a task done, (r)emove, (v)iew, (q)uit")
     action = input("Enter your choice: ")
+    action = action.lower() # in case user enters uppercase letters
     if action == 'a':
         task = input("Enter the task to add: ")
         add_task(task)
@@ -84,7 +86,7 @@ while True:
     else:
         print("Invalid choice. Please try again.")
     with open("tasks.txt", "w") as file:
-        file.write("Pending tasks:\n")
+        file.write("Pending tasks:\n") # write the tasks to the file
         for task in tasks["pending"]:
             file.write(f"- {task}\n")
         file.write("Done tasks:\n")
